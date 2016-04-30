@@ -13,7 +13,7 @@ module.exports = new Script({
 
     start: {
         receive: (bot) => {
-            return bot.say('What's up, Jacob? Clearly bots are taking over the world, but you can go ahead and ask, Will bots take over the world?')
+            return bot.say('So you want to learn about Dylan? Just say HELLO to get started.')
                 .then(() => 'speak');
         }
     },
@@ -48,26 +48,10 @@ module.exports = new Script({
                 }
 
                 var response = scriptRules[upperText];
-                var lines = response.split(/(<img src=\'[^>]*\'\/>)/);
 
-                var p = Promise.resolve();
-                _.each(lines, function(line) {
-                    line = line.trim();
-                    if (!line.startsWith("<")) {
-                        p = p.then(function() {
-                            return bot.say(line);
-                        });
-                    } else {
-                        // p = p.then(function() {
-                        //     var start = line.indexOf("'") + 1;
-                        //     var end = line.lastIndexOf("'");
-                        //     var imageFile = line.substring(start, end);
-                        //     return bot.sendImage(imageFile);
-                        // });
-                    }
-                })
+                // todo handle images
 
-                return p.then(() => 'speak');
+                return bot.say(response).then(() => 'speak');
             }
 
             return updateSilent()
